@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopOnline - Vêtements, Chaussures & Électronique</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Variables CSS */
+        :root {
+            --primary-color: #04176d;
+            --secondary-color: #ff0808;
+            --dark-color: #020c92;
+            --light-color: #f4f4f4;
+            --success-color: #28a745;
+        }
+
+        /* Styles généraux */
+        body {
+            background-color: #cac4c4;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background-color: #000f30;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--light-color);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--light-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgb(0, 8, 117), rgb(177, 160, 252)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            color: var(--dark-color);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .category-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+
+        .category-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .category-info h3 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        /* Products */
+        .products {
+            padding: 60px 0;
+            background-color: #797676;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-img {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+
+        /* Filter */
+        .filter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        /* Cart Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            border-radius: 10px;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            margin: 20px 0;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background: #f1f1f1;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+        }
+
+        .remove-item {
+            color: var(--secondary-color);
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ddd;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 20px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin-top: 20px;
+            }
+
+            .nav-links li {
+                margin-left: 15px;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .filter {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter select {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Waldy_ht Shop<span>Online</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#categories">Catégories</a></li>
+                    <li><a href="#products">Produits</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li>
+                        <a href="#" class="cart-icon" id="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Bienvenue sur Waldy_ht ShopOnline</h1>
+                <p>Découvrez notre sélection exclusive de vêtements, chaussures et appareils électroniques</p>
+                <a href="#products" class="btn">Voir les produits</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Nos Catégories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="images/Vetements.jpg" alt="Vêtements">
+                    </div>
+                    <div class="category-info">
+                        <h3>Vêtements</h3>
+                        <a href="#clothing" class="btn btn-secondary">Voir plus</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="images/Chaussures.jpg" alt="Chaussures">
+                    </div>
+                    <div class="category-info">
+                        <h3>Chaussures</h3>
+                        <a href="#shoes" class="btn btn-secondary">Voir plus</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <div class="category-img">
+                        <img src="images/Electroniques.jpg" alt="Électronique">
+                    </div>
+                    <div class="category-info">
+                        <h3>Électronique</h3>
+                        <a href="#electronics" class="btn btn-secondary">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Nos Produits</h2>
+            
+            <div class="filter">
+                <div>
+                    <select id="category-filter">
+                        <option value="all">Toutes catégories</option>
+                        <option value="clothing">Vêtements</option>
+                        <option value="shoes">Chaussures</option>
+                        <option value="electronics">Électronique</option>
+                    </select>
+                    <select id="price-filter">
+                        <option value="all">Tous les prix</option>
+                        <option value="0-50">Moins de 50$</option>
+                        <option value="50-100">50$ - 100$</option>
+                        <option value="100-500">100$ - 500$</option>
+                        <option value="500+">Plus de 500$</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="sort-by">
+                        <option value="default">Trier par</option>
+                        <option value="price-asc">Prix croissant</option>
+                        <option value="price-desc">Prix décroissant</option>
+                        <option value="name-asc">Nom (A-Z)</option>
+                        <option value="name-desc">Nom (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="product-grid" id="product-grid">
+                <!-- Produits chargés dynamiquement via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Votre Panier</h2>
+            <div class="cart-items" id="cart-items">
+                <!-- Articles du panier chargés dynamiquement -->
+                <p class="text-center" id="empty-cart-message">Votre panier est vide</p>
+            </div>
+            <div class="cart-total">
+                Total: <span id="cart-total">0$</span>
+            </div>
+            <button class="btn btn-secondary" id="checkout-btn">Passer la commande</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Waldy_ht ShopOnline</h3>
+                    <p>Le meilleur endroit pour acheter des vêtements, chaussures et appareils électroniques en ligne.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Liens rapides</h3>
+                    <ul>
+                        <li><a href="#home">Accueil</a></li>
+                        <li><a href="#categories">Catégories</a></li>
+                        <li><a href="#products">Produits</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Informations</h3>
+                    <ul>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Politique de retour</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>P52 O Village Ekam, Trou du Nord</li>
+                        <li>cambronnewaldy123@gmail.com</li>
+                        <li>+509 3110-3452</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 ShopOnline. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Données des produits
+        const products = [
+            {
+                id: 1,
+                name: "Chemise",
+                category: "clothing",
+                price: 9.99,
+                oldPrice: 29.99,
+                image: "images/Chemise.jpg",
+                rating: 4,
+                badge: "Nouveau"
+            },
+            {
+                id: 2,
+                name: "Jean slim",
+                category: "clothing",
+                price: 49.99,
+                oldPrice: 59.99,
+                image: "images/Jeans slime.jpg",
+                rating: 5,
+                badge: "Populaire"
+            },
+            {
+                id: 3,
+                name: "Veste en cuir",
+                category: "clothing",
+                price: 99.99,
+                oldPrice: 249.99,
+                image: "images/Veste.jpg",
+                rating: 4,
+                badge: "Soldes"
+            },
+            {
+                id: 4,
+                name: "Baskets sport",
+                category: "shoes",
+                price: 49.99,
+                oldPrice: 99.99,
+                image: "images/Tenis.jpg",
+                rating: 5,
+                badge: "Nouveau"
+            },
+            {
+                id: 5,
+                name: "Mocassin",
+                category: "shoes",
+                price: 79.99,
+                image: "images/Shoes.jpg",
+                rating: 4,
+                badge: "Top vente"
+            },
+            {
+                id: 6,
+                name: "Sandales",
+                category: "shoes",
+                price: 19.99,
+                image: "images/Sandal ga.jpg",
+                rating: 3,
+                badge: null
+            },
+            {
+                id: 7,
+                name: "Iphone 13 Pro Max",
+                category: "electronics",
+                price: 599.99,
+                image: "images/Phone.png",
+                rating: 5,
+                badge: "Meilleur vente"
+            },
+            {
+                id: 8,
+                name: "Casque sans fil",
+                category: "electronics",
+                price: 49.99,
+                oldPrice: 179.99,
+                image: "images/pngwing.com 101.png",
+                rating: 4,
+                badge: "Promo"
+            },
+            {
+                id: 9,
+                name: "Ordinateur portable",
+                category: "electronics",
+                price: 399.99,
+                image: "images/Laptop.jpg",
+                rating: 5,
+                badge: null
+            },
+            {
+                id: 10,
+                name: "Robe",
+                category: "clothing",
+                price: 19.99,
+                image: "images/Robe.jpg",
+                rating: 4,
+                badge: null
+            },
+            {
+                id: 11,
+                name: "SmartWatch",
+                category: "electronics",
+                price: 199.99,
+                oldPrice: 249.99,
+                image: "images/Smartwatch.png",
+                rating: 4,
+                badge: "Soldes"
+            },
+            {
+                id: 12,
+                name: "Chaussures",
+                category: "shoes",
+                price: 89.99,
+                image: "images/Soulier.jpg",
+                rating: 5,
+                badge: null
+            }
+        ];
+
+        // Panier
+        let cart = [];
+
+        // DOM Elements
+        const productGrid = document.getElementById('product-grid');
+        const cartIcon = document.getElementById('cart-icon');
+        const cartModal = document.getElementById('cart-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const cartCount = document.querySelector('.cart-count');
+        const categoryFilter = document.getElementById('category-filter');
+        const priceFilter = document.getElementById('price-filter');
+        const sortBy = document.getElementById('sort-by');
+
+        // Afficher les produits
+        function displayProducts(productsToDisplay) {
+            productGrid.innerHTML = '';
+            
+            if (productsToDisplay.length === 0) {
+                productGrid.innerHTML = '<p class="text-center">Aucun produit ne correspond à vos critères</p>';
+                return;
+            }
+            
+            productsToDisplay.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-img">
+                        <img src="${product.image}" alt="${product.name}">
+                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3>${product.name}</h3>
+                        <div class="product-rating">
+                            ${'★'.repeat(product.rating)}${'☆'.repeat(5 - product.rating)}
+                        </div>
+                        <div class="product-price">
+                            <div>
+                                <span class="price">$${product.price.toFixed(2)}</span>
+                                ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                            </div>
+                            <button class="btn add-to-cart" data-id="${product.id}">Ajouter</button>
+                        </div>
+                    </div>
+                `;
+                productGrid.appendChild(productCard);
+            });
+            
+            // Ajouter les écouteurs d'événements aux boutons "Ajouter"
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Ajouter au panier
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === productId);
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showCartNotification();
+        }
+
+        // Mettre à jour le panier
+        function updateCart() {
+            // Mettre à jour le compteur
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Mettre à jour le modal du panier
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+            } else {
+                emptyCartMessage.style.display = 'none';
+                
+                cartItemsContainer.innerHTML = '';
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price.toFixed(2)}€</div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                            <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}">
+                            <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="remove-item" data-id="${item.id}">×</div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+                
+                // Calculer le total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                cartTotal.textContent = `$${total.toFixed(2)}`;
+            }
+            
+            // Ajouter les écouteurs d'événements
+            document.querySelectorAll('.decrease').forEach(btn => {
+                btn.addEventListener('click', decreaseQuantity);
+            });
+            
+            document.querySelectorAll('.increase').forEach(btn => {
+                btn.addEventListener('click', increaseQuantity);
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', updateQuantity);
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(btn => {
+                btn.addEventListener('click', removeItem);
+            });
+        }
+
+        // Diminuer la quantité
+        function decreaseQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+                updateCart();
+            }
+        }
+
+        // Augmenter la quantité
+        function increaseQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = cart.find(item => item.id === productId);
+            
+            item.quantity += 1;
+            updateCart();
+        }
+
+        // Mettre à jour la quantité via l'input
+        function updateQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const newQuantity = parseInt(e.target.value);
+            const item = cart.find(item => item.id === productId);
+            
+            if (newQuantity > 0) {
+                item.quantity = newQuantity;
+                updateCart();
+            } else {
+                e.target.value = item.quantity;
+            }
+        }
+
+        // Supprimer un article
+        function removeItem(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        // Afficher la notification du panier
+        function showCartNotification() {
+            cartIcon.classList.add('animate');
+            setTimeout(() => {
+                cartIcon.classList.remove('animate');
+            }, 500);
+        }
+
+        // Filtrer et trier les produits
+        function filterAndSortProducts() {
+            let filteredProducts = [...products];
+            
+            // Filtrer par catégorie
+            if (categoryFilter.value !== 'all') {
+                filteredProducts = filteredProducts.filter(product => product.category === categoryFilter.value);
+            }
+            
+            // Filtrer par prix
+            if (priceFilter.value !== 'all') {
+                const [min, max] = priceFilter.value.split('-').map(val => {
+                    if (val.endsWith('+')) return parseInt(val) || 0;
+                    return parseInt(val) || 0;
+                });
+                
+                if (priceFilter.value.endsWith('+')) {
+                    filteredProducts = filteredProducts.filter(product => product.price >= min);
+                } else {
+                    filteredProducts = filteredProducts.filter(product => product.price >= min && product.price <= max);
+                }
+            }
+            
+            // Trier
+            switch (sortBy.value) {
+                case 'price-asc':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-desc':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name-asc':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'name-desc':
+                    filteredProducts.sort((a, b) => b.name.localeCompare(a.name));
+                    break;
+                default:
+                    break;
+            }
+            
+            displayProducts(filteredProducts);
+        }
+
+        // Écouteurs d'événements
+        cartIcon.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length > 0) {
+                alert('Commande passée avec succès! Merci pour votre achat.');
+                cart = [];
+                updateCart();
+                cartModal.style.display = 'none';
+            }
+        });
+
+        categoryFilter.addEventListener('change', filterAndSortProducts);
+        priceFilter.addEventListener('change', filterAndSortProducts);
+        sortBy.addEventListener('change', filterAndSortProducts);
+
+        // Initialiser la page
+        displayProducts(products);
+        
+        // Ajouter Font Awesome pour les icônes
+        const fontAwesome = document.createElement('link');
+        fontAwesome.rel = 'stylesheet';
+        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+        document.head.appendChild(fontAwesome);
+    </script>
+</body>
+</html>
